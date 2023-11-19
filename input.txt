@@ -1,6 +1,12 @@
 public class Example {
     private int count = 0;
-
+    if(i==10){
+      System.out.println("i==10");
+    }
+    
+    else{
+      System.out.println("i!=10");
+    }
     public void printNumbers() {
         System.out.println("Printing numbers: ");
         for (int i = 1; i <= 5; i++) {
@@ -40,7 +46,9 @@ public class Example {
         }
         int arr[] = new int[5];
         arr[0] = 1;
-        arr[1] = 2;
+        arr[1]++;
+        arr[i++]=10;
+        int arr[][]=new int[5][5];
         int arr[] = {1,2,3,4,5};
         int result = 10 + 20 * 2;
         System.out.println("Result " + result);
@@ -65,4 +73,31 @@ public class Example {
         return;
     }
 }
+
+
+public class TwoDArray {
+    public static void main(String[] args) {
+        int rows = 4;
+        int columns = 4;
+ 
+        int[][] array = new int[rows][columns];
+ 
+        int value = 1;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                array[i][j] = value;
+                value++;
+            }
+        }
+ 
+        System.out.println("The 2D array is: ");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
 

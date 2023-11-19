@@ -42,13 +42,14 @@ tokens = (
     "CATCH",
     "FINALLY",
     "PASS",
+    "TRUE",
+    "FALSE",
 )
 
 t_LBRACKET = r"\["
 t_RBRACKET = r"\]"
 t_NUMBER = r"\d+(\.\d+)?"
 t_CHAR = r"'[a-zA-Z0-9]'"
-t_IDENTIFIER = r"[a-zA-Z_][a-zA-Z0-9_\.]*"
 t_LPAREN = r"\("
 t_RPAREN = r"\)"
 t_LBRACE = r"\{"
@@ -116,6 +117,16 @@ def t_LOGICAL(t):
     return t
 
 
+def t_TRUE(t):
+    r"true"
+    return t
+
+
+def t_FALSE(t):
+    r"false"
+    return t
+
+
 def t_RETURNTYPE(t):
     r"float|int|char|void|String|double"
     return t
@@ -180,10 +191,14 @@ def t_CLASS(t):
     r"class"
     return t
 
+def t_IDENTIFIER(t):
+    r'[a-zA-Z_$][a-zA-Z_$0-9]*(\.[a-zA-Z_$][a-zA-Z_$0-9]*)*'
+    return t    
 
 def t_newline(t):
     r"\n+"
     t.lexer.lineno += len(t.value)
+
 
 
 def t_error(t):

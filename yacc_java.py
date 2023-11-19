@@ -129,8 +129,8 @@ def p_params(p):
 
 
 def p_param(p):
-    """param : IDENTIFIER
-    | NUMBER"""
+    """param : increment
+    | expression"""
     p[0] = " ".join(map(str, p[1:]))
 
 
@@ -140,6 +140,20 @@ def p_class_statement(p):
     | IDENTIFIER IDENTIFIER ASSIGN NEW IDENTIFIER LBRACKET RBRACKET SEMICOLON
     | IDENTIFIER IDENTIFIER ASSIGN NEW IDENTIFIER LPAREN params RPAREN SEMICOLON
     | IDENTIFIER IDENTIFIER ASSIGN NEW IDENTIFIER LBRACKET NUMBER RBRACKET SEMICOLON"""
+    p[0] = " ".join(map(str, p[1:]))
+
+
+def p_arrays(p):
+    """arrays : LBRACKET RBRACKET
+    | LBRACKET RBRACKET arrays
+    | LBRACKET expression RBRACKET arrays
+    | LBRACKET expression RBRACKET"""
+    p[0] = " ".join(map(str, p[1:]))
+
+
+def p_bool(p):
+    """bool : TRUE
+    | FALSE"""
     p[0] = " ".join(map(str, p[1:]))
 
 
@@ -156,17 +170,17 @@ def p_assignment_statement(p):
     | IDENTIFIER MINUS ASSIGN expression SEMICOLON
     | IDENTIFIER TIMES ASSIGN expression SEMICOLON
     | IDENTIFIER DIVIDE ASSIGN expression SEMICOLON
-    | IDENTIFIER PLUS PLUS SEMICOLON
-    | IDENTIFIER MINUS MINUS SEMICOLON
-    | PLUS PLUS IDENTIFIER SEMICOLON
-    | MINUS MINUS IDENTIFIER SEMICOLON
-    | RETURNTYPE IDENTIFIER LBRACKET RBRACKET ASSIGN LBRACE items RBRACE SEMICOLON
-    | RETURNTYPE LBRACKET RBRACKET IDENTIFIER ASSIGN LBRACE items RBRACE SEMICOLON
-    | IDENTIFIER LBRACKET expression RBRACKET ASSIGN expression SEMICOLON
-    | IDENTIFIER LBRACKET expression RBRACKET ASSIGN LBRACE items RBRACE SEMICOLON
-    | IDENTIFIER LBRACKET RBRACKET ASSIGN LBRACE items RBRACE SEMICOLON
-    | RETURNTYPE IDENTIFIER LBRACKET RBRACKET ASSIGN NEW RETURNTYPE LBRACKET NUMBER RBRACKET SEMICOLON
-    | RETURNTYPE IDENTIFIER LBRACKET RBRACKET ASSIGN NEW RETURNTYPE LBRACKET RBRACKET SEMICOLON"""
+    | IDENTIFIER arrays PLUS PLUS SEMICOLON
+    | increment SEMICOLON
+    | IDENTIFIER arrays MINUS MINUS SEMICOLON
+    | PLUS PLUS IDENTIFIER arrays SEMICOLON
+    | MINUS MINUS IDENTIFIER arrays SEMICOLON
+    | RETURNTYPE IDENTIFIER arrays ASSIGN LBRACE items RBRACE SEMICOLON
+    | RETURNTYPE arrays IDENTIFIER ASSIGN LBRACE items RBRACE SEMICOLON
+    | IDENTIFIER arrays ASSIGN expression SEMICOLON
+    | IDENTIFIER arrays ASSIGN LBRACE items RBRACE SEMICOLON
+    | RETURNTYPE IDENTIFIER arrays ASSIGN NEW RETURNTYPE arrays SEMICOLON
+    | RETURNTYPE arrays IDENTIFIER ASSIGN NEW RETURNTYPE arrays SEMICOLON"""
 
     p[0] = " ".join(map(str, p[1:]))
 
@@ -177,9 +191,15 @@ def p_print_statement(p):
     p[0] = " ".join(map(str, p[1:]))
 
 
+def p_array_access(p):
+    """array_access : IDENTIFIER arrays"""
+    p[0] = " ".join(map(str, p[1:]))
+
+
 def p_expression(p):
     """expression : IDENTIFIER
     | NUMBER
+    | array_access
     | expression PLUS
     | expression MINUS
     | expression PLUS expression
@@ -187,7 +207,8 @@ def p_expression(p):
     | expression TIMES expression
     | expression DIVIDE expression
     | STRING
-    | CHAR"""
+    | CHAR
+    | bool"""
     p[0] = " ".join(map(str, p[1:]))
 
 
