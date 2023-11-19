@@ -44,6 +44,7 @@ tokens = (
     "PASS",
     "TRUE",
     "FALSE",
+    "COMMENT",
 )
 
 t_LBRACKET = r"\["
@@ -65,6 +66,9 @@ t_SEMICOLON = r";"
 
 t_ignore = " \t\n"
 
+def t_COMMENT(t):
+    r"/[*][^*]*[*]+([^/*][^*]*[*]+)*/|//[^\n]*"
+    pass
 
 def t_IF(t):
     r"if"
@@ -74,7 +78,6 @@ def t_IF(t):
 def t_ELSE(t):
     r"else"
     return t
-
 
 def t_PASS(t):
     r"pass"

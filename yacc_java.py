@@ -18,7 +18,8 @@ def p_program(p):
 
 
 def p_class(p):
-    """class : ACCESS CLASS IDENTIFIER LBRACE stats RBRACE"""
+    """class : ACCESS CLASS IDENTIFIER LBRACE stats RBRACE
+    | CLASS IDENTIFIER LBRACE stats RBRACE"""
     p[0] = " ".join(map(str, p[1:]))
 
 
