@@ -27,7 +27,7 @@ tokens = (
     "SWITCH",
     "CASE",
     "DEFAULT",
-    "SEMI",
+    "COLON",
     "RETURN",
     "ACCESS",
     "THIS",
@@ -141,7 +141,7 @@ def t_DEFAULT(t):
     return t
 
 
-def t_SEMI(t):
+def t_COLON(t):
     r":"
     return t
 

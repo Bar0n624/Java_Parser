@@ -112,8 +112,8 @@ def p_cases(p):
 
 
 def p_case(p):
-    """case : CASE NUMBER SEMI statements
-    | DEFAULT SEMI statements"""
+    """case : CASE NUMBER COLON statements
+    | DEFAULT COLON statements"""
     p[0] = " ".join(map(str, p[1:]))
 
 

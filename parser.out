@@ -49,8 +49,8 @@ Rule 43    statement -> BREAK SEMICOLON
 Rule 44    switch -> SWITCH LPAREN IDENTIFIER RPAREN LBRACE cases RBRACE
 Rule 45    cases -> case
 Rule 46    cases -> case cases
-Rule 47    case -> CASE NUMBER SEMI statements
-Rule 48    case -> DEFAULT SEMI statements
+Rule 47    case -> CASE NUMBER COLON statements
+Rule 48    case -> DEFAULT COLON statements
 Rule 49    while -> WHILE LPAREN params RPAREN LBRACE statements RBRACE
 Rule 50    params -> param
 Rule 51    params -> param LOGICAL params
@@ -128,6 +128,7 @@ CASE                 : 47
 CATCH                : 114 115
 CHAR                 : 93 100
 CLASS                : 5
+COLON                : 47 48
 COMMA                : 22 98
 DEFAULT              : 48
 DIVIDE               : 64 70 91
@@ -150,7 +151,6 @@ RBRACKET             : 24 56 58 75 76 77 78 79 80 80 81 81
 RETURN               : 94 95 96
 RETURNTYPE           : 13 14 15 16 17 18 19 20 23 24 59 60 61 62 63 64 65 75 76 80 80 81 81
 RPAREN               : 11 12 13 14 15 16 17 18 19 20 27 28 44 49 55 57 82 83 104 109 114 115
-SEMI                 : 47 48
 SEMICOLON            : 6 27 28 38 43 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 94 95 96 109
 SOP                  : 82 83
 STATIC               : 17 18 19 20
@@ -4273,8 +4273,8 @@ state 203
     (44) switch -> SWITCH LPAREN IDENTIFIER RPAREN LBRACE . cases RBRACE
     (45) cases -> . case
     (46) cases -> . case cases
-    (47) case -> . CASE NUMBER SEMI statements
-    (48) case -> . DEFAULT SEMI statements
+    (47) case -> . CASE NUMBER COLON statements
+    (48) case -> . DEFAULT COLON statements
 
     CASE            shift and go to state 239
     DEFAULT         shift and go to state 240
@@ -5113,8 +5113,8 @@ state 238
     (46) cases -> case . cases
     (45) cases -> . case
     (46) cases -> . case cases
-    (47) case -> . CASE NUMBER SEMI statements
-    (48) case -> . DEFAULT SEMI statements
+    (47) case -> . CASE NUMBER COLON statements
+    (48) case -> . DEFAULT COLON statements
 
     RBRACE          reduce using rule 45 (cases -> case .)
     CASE            shift and go to state 239
@@ -5125,16 +5125,16 @@ state 238
 
 state 239
 
-    (47) case -> CASE . NUMBER SEMI statements
+    (47) case -> CASE . NUMBER COLON statements
 
     NUMBER          shift and go to state 271
 
 
 state 240
 
-    (48) case -> DEFAULT . SEMI statements
+    (48) case -> DEFAULT . COLON statements
 
-    SEMI            shift and go to state 272
+    COLON           shift and go to state 272
 
 
 state 241
@@ -5727,14 +5727,14 @@ state 270
 
 state 271
 
-    (47) case -> CASE NUMBER . SEMI statements
+    (47) case -> CASE NUMBER . COLON statements
 
-    SEMI            shift and go to state 300
+    COLON           shift and go to state 300
 
 
 state 272
 
-    (48) case -> DEFAULT SEMI . statements
+    (48) case -> DEFAULT COLON . statements
     (25) statements -> . statement
     (26) statements -> . statement statements
     (29) statement -> . assignment_statement
@@ -6368,7 +6368,7 @@ state 299
 
 state 300
 
-    (47) case -> CASE NUMBER SEMI . statements
+    (47) case -> CASE NUMBER COLON . statements
     (25) statements -> . statement
     (26) statements -> . statement statements
     (29) statement -> . assignment_statement
@@ -6475,11 +6475,11 @@ state 300
 
 state 301
 
-    (48) case -> DEFAULT SEMI statements .
+    (48) case -> DEFAULT COLON statements .
 
-    CASE            reduce using rule 48 (case -> DEFAULT SEMI statements .)
-    DEFAULT         reduce using rule 48 (case -> DEFAULT SEMI statements .)
-    RBRACE          reduce using rule 48 (case -> DEFAULT SEMI statements .)
+    CASE            reduce using rule 48 (case -> DEFAULT COLON statements .)
+    DEFAULT         reduce using rule 48 (case -> DEFAULT COLON statements .)
+    RBRACE          reduce using rule 48 (case -> DEFAULT COLON statements .)
 
 
 state 302
@@ -6980,11 +6980,11 @@ state 321
 
 state 322
 
-    (47) case -> CASE NUMBER SEMI statements .
+    (47) case -> CASE NUMBER COLON statements .
 
-    CASE            reduce using rule 47 (case -> CASE NUMBER SEMI statements .)
-    DEFAULT         reduce using rule 47 (case -> CASE NUMBER SEMI statements .)
-    RBRACE          reduce using rule 47 (case -> CASE NUMBER SEMI statements .)
+    CASE            reduce using rule 47 (case -> CASE NUMBER COLON statements .)
+    DEFAULT         reduce using rule 47 (case -> CASE NUMBER COLON statements .)
+    RBRACE          reduce using rule 47 (case -> CASE NUMBER COLON statements .)
 
 
 state 323
