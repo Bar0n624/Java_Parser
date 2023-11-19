@@ -1,5 +1,6 @@
 import ply.lex as lex
 
+import sys
 
 tokens = (
     "LOGICAL",
@@ -192,52 +193,20 @@ def t_error(t):
 
 lexer = lex.lex()
 
-input_text = """public class Example {
-    private int count = 0;
-
-    public void printNumbers() {
-        System.out.println("Printing numbers:");
-        for (int i = 1; i <= 5; i++) {
-            System.out.print(i + " ");
-        }
-        System.out.println();
-    }
-
-    public String concatenateStrings(String s1, String s2) {
-        return s1 + s2;
-    }
-
-    public static void main(String[] args) {
-        Example example = new Example();
-        example.printNumbers();
-
-        int result = 10 + 20 * 2;
-        System.out.println("Result: " + result);
-
-        switch (result) {
-            case 30:
-                System.out.println("Case 30");
-                break;
-            default:
-                System.out.println("Default Case");
-        }
-
-        char myChar = 'A';
-        String myString = "Hello, World!";
-        System.out.println(myString);
-
-        while (result > 0) {
-            System.out.println(result);
-            result--;
-        }
-
-        return;
-    }
-}
-"""
-lexer.input(input_text)
 
 if __name__ == "__main__":
+    if len(sys.argv) == 3:
+        try:
+            f = open(sys.argv[2], "r")
+            data = f.read()
+            f.close()
+            lexer.input(data)
+        except FileNotFoundError:
+            print("File not found")
+            sys.exit(0)
+    else:
+        print("Usage: python lex_java.py <filename>")
+        sys.exit(0)
     while True:
         tok = lexer.token()
         if not tok:
