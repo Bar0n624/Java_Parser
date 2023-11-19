@@ -134,12 +134,16 @@ def p_param(p):
     | expression"""
     p[0] = " ".join(map(str, p[1:]))
 
+def p_values(p):
+    """values : expression
+    | expression COMMA values
+    """
 
 def p_class_statement(p):
     """class_statement : IDENTIFIER IDENTIFIER SEMICOLON
     | IDENTIFIER IDENTIFIER ASSIGN NEW IDENTIFIER LPAREN RPAREN SEMICOLON
     | IDENTIFIER IDENTIFIER ASSIGN NEW IDENTIFIER LBRACKET RBRACKET SEMICOLON
-    | IDENTIFIER IDENTIFIER ASSIGN NEW IDENTIFIER LPAREN params RPAREN SEMICOLON
+    | IDENTIFIER IDENTIFIER ASSIGN NEW IDENTIFIER LPAREN values RPAREN SEMICOLON
     | IDENTIFIER IDENTIFIER ASSIGN NEW IDENTIFIER LBRACKET NUMBER RBRACKET SEMICOLON"""
     p[0] = " ".join(map(str, p[1:]))
 
@@ -199,6 +203,9 @@ def p_array_access(p):
 
 def p_expression(p):
     """expression : IDENTIFIER
+    | IDENTIFIER LPAREN RPAREN
+    | LPAREN expression RPAREN
+    | IDENTIFIER LPAREN values RPAREN
     | NUMBER
     | array_access
     | expression PLUS
