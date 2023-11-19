@@ -195,18 +195,18 @@ lexer = lex.lex()
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 3:
+    if len(sys.argv) >= 2:
         try:
-            f = open(sys.argv[2], "r")
-            data = f.read()
-            f.close()
+            with open(sys.argv[1], "r") as f:
+                data = f.read()
             lexer.input(data)
         except FileNotFoundError:
             print("File not found")
-            sys.exit(0)
+            sys.exit(1)
     else:
         print("Usage: python lex_java.py <filename>")
-        sys.exit(0)
+        sys.exit(1)
+
     while True:
         tok = lexer.token()
         if not tok:
