@@ -6,11 +6,12 @@ A simple python ply program to parse some Java programs
 - Constructors
 - Functions
 - switch statements
-- One dimensional Arrays
+- Arrays
+- Class variable and function access statements
 - if else blocks
 - try catch finally blocks
 - Simple function calls
-- Simple class declerations
+- Simple class declarations
 - Simple expressions
 - Print statements
 - for loop
